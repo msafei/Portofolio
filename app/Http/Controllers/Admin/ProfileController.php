@@ -29,7 +29,7 @@ class ProfileController extends Controller
             'media_type' => 'required|in:video,image',
             'media_title' => 'required|string|max:255',
             'media_subtitle' => 'required|string|max:255',
-            'media_file' => 'nullable|file|mimes:mp4,jpg,jpeg,png,webp|max:20480', // 20MB max
+            'media_file' => 'nullable|file|mimes:mp4,jpg,jpeg,png,webp,gif|max:20480', // 20MB max
             'resume_file' => 'nullable|file|mimes:pdf|max:10240', // 10MB max
         ]);
 
