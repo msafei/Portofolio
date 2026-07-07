@@ -59,11 +59,12 @@ class SettingsController extends Controller
         $user = Auth::user();
         $google2fa = new Google2FA();
 
-        // Generate a new secret
-        $secret = $google2fa->generateSecretKey();
-
-        // Store secret temporarily in session until user confirms
-        session(['2fa_secret_temp' => $secret]);
+        // Use existing temp secret or generate a new one
+        $secret = session('2fa_secret_temp');
+        if (!$secret) {
+            $secret = $google2fa->generateSecretKey();
+            session(['2fa_secret_temp' => $secret]);
+        }
 
         // Generate QR code URL
         $qrCodeUrl = $google2fa->getQRCodeUrl(
