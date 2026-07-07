@@ -1,8 +1,8 @@
 @extends('layouts.front')
 
 @section('content')
-<div class="mx-auto max-w-[1200px] px-4 lg:px-6 pb-20">
-    <div class="mb-10 text-center">
+<div class="mx-auto max-w-[1200px] px-4 lg:px-6 pt-10 pb-20">
+    <div class="mb-10 text-center mt-6">
         <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter border-b-4 border-black dark:border-white pb-4 inline-block">Certificates</h1>
         <p class="mt-4 text-sm md:text-base font-bold tracking-widest uppercase">My Licenses & Certifications</p>
     </div>
