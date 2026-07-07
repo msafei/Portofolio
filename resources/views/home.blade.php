@@ -69,9 +69,9 @@
         </div>
 
         <!-- CENTER COLUMN: Media — hidden on mobile, shown on desktop (6/12) -->
-        <div class="hidden lg:block lg:col-span-6 relative lg:border-x-0 border-black dark:border-white lg:py-0 min-h-[400px]">
+        <div class="hidden lg:block lg:col-span-6 relative lg:border-x-0 border-black dark:border-white lg:py-0 h-full">
             <figure class="group absolute inset-0 overflow-hidden lg:border-y-0 lg:border-x-2 border-2 border-black dark:border-white w-full h-full">
-                <img src="{{ asset($profile->media_path) }}" alt="{{ $profile->name }}" class="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition duration-700 animate-breathe" />
+                <img src="{{ asset($profile->media_path) }}" alt="{{ $profile->name }}" class="absolute inset-0 w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition duration-700 animate-breathe" />
                 <div class="absolute bottom-0 left-0 bg-black text-white dark:bg-white dark:text-black p-3 m-4 border border-white/20 dark:border-black/20 backdrop-blur-md z-10">
                     <h3 class="text-lg font-black uppercase tracking-tighter">{{ $profile->media_title }}</h3>
                     <p class="text-xs font-medium opacity-80 uppercase tracking-widest mt-1">{{ $profile->media_subtitle }}</p>
