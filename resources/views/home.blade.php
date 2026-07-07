@@ -45,9 +45,9 @@
             </figure>
 
             <!-- Expertise -->
-            <section class="flex flex-col flex-1 min-h-0">
-                <h2 class="text-2xl font-black uppercase border-b-2 border-black dark:border-white pb-1 mb-3 shrink-0">Expertise</h2>
-                <div id="expertise-scroll" class="lg:flex-1 lg:overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <section>
+                <h2 class="text-2xl font-black uppercase border-b-2 border-black dark:border-white pb-1 mb-3">Expertise</h2>
+                <div id="expertise-scroll" class="lg:max-h-[300px] lg:overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                     <div id="expertise-list" class="flex flex-col gap-3 py-1">
                         @foreach($expertises as $idx => $expertise)
                         <article onclick="openModal('{{ addslashes($expertise->name) }}', '{{ addslashes($expertise->category) }}', '', '{{ asset($expertise->logo_path) }}', '{{ addslashes($expertise->description) }}')" class="flex items-center gap-4 border-2 border-black dark:border-white p-3 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition group/item cursor-pointer h-[60px] shrink-0">
