@@ -70,7 +70,7 @@
 
         <!-- CENTER COLUMN: Media — hidden on mobile, shown on desktop (6/12) -->
         <div class="hidden lg:block lg:col-span-6 relative lg:border-x-0 border-black dark:border-white lg:py-0">
-            <figure class="group relative overflow-hidden border-2 border-black dark:border-white w-full h-full min-h-[400px]">
+            <figure class="group relative overflow-hidden border-2 border-black dark:border-white w-full h-full min-h-[400px] max-h-[600px]">
                 <img src="{{ asset($profile->media_path) }}" alt="{{ $profile->name }}" class="w-full h-full object-cover object-center grayscale group-hover:grayscale-0 transition duration-700 animate-breathe" />
                 <div class="absolute bottom-0 left-0 bg-black text-white dark:bg-white dark:text-black p-3 m-4 border border-white/20 dark:border-black/20 backdrop-blur-md">
                     <h3 class="text-lg font-black uppercase tracking-tighter">{{ $profile->media_title }}</h3>
