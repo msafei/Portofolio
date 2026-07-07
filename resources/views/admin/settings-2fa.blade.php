@@ -1,67 +1,80 @@
 @extends('layouts.admin')
 
 @section('content')
-<div>
-    <h1 class="text-3xl md:text-4xl font-black uppercase tracking-tighter mb-2">Enable Two-Factor Authentication</h1>
-    <p class="text-gray-500 font-medium mb-10">Scan the QR code below with your Google Authenticator app, then enter the 6-digit code to confirm.</p>
+<div class="max-w-4xl mx-auto">
+    <div class="mb-10">
+        <a href="{{ route('admin.settings.index') }}" class="inline-flex items-center text-sm font-bold uppercase tracking-widest text-gray-500 hover:text-black transition mb-4">
+            &larr; Back to Settings
+        </a>
+        <h1 class="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-3">Two-Factor Authentication</h1>
+        <p class="text-gray-500 font-medium text-lg max-w-2xl">Secure your account by linking it with Google Authenticator. Follow the steps below to complete the setup.</p>
+    </div>
 
-    @if(session('error'))
-        <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded font-bold">
-            {{ session('error') }}
-        </div>
-    @endif
+    <div class="bg-white border-4 border-black p-8 md:p-12 relative overflow-hidden shadow-[8px_8px_0px_0px_#ea580c]">
+        <!-- Decorative bg -->
+        <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
 
-    <div class="bg-white border border-gray-200 rounded-lg p-6 md:p-8 max-w-lg">
-        <!-- Step 1: Scan QR Code -->
-        <div class="mb-8">
-            <h2 class="text-lg font-black uppercase tracking-wider mb-1">Step 1: Scan QR Code</h2>
-            <p class="text-sm text-gray-500 mb-6">Open Google Authenticator on your phone and scan this QR code.</p>
-
-            <div class="flex justify-center bg-white p-4 border-2 border-gray-200 rounded-lg">
-                {!! $qrCodeSvg !!}
-            </div>
-        </div>
-
-        <!-- Step 2: Manual Key -->
-        <div class="mb-8">
-            <h2 class="text-lg font-black uppercase tracking-wider mb-1">Step 2: Or Enter Key Manually</h2>
-            <p class="text-sm text-gray-500 mb-3">If you can't scan the QR code, enter this key manually in your app.</p>
-
-            <div class="bg-gray-100 border-2 border-gray-300 p-4 rounded font-mono text-lg font-bold tracking-widest text-center select-all break-all">
-                {{ $secret }}
-            </div>
-        </div>
-
-        <!-- Step 3: Verify -->
-        <div>
-            <h2 class="text-lg font-black uppercase tracking-wider mb-1">Step 3: Verify Code</h2>
-            <p class="text-sm text-gray-500 mb-4">Enter the 6-digit code shown in Google Authenticator to confirm setup.</p>
-
-            <form method="POST" action="{{ route('admin.settings.2fa.enable') }}">
-                @csrf
-
-                <div class="mb-4">
-                    <input type="text" name="code" required autofocus
-                        class="w-full border-2 border-gray-300 bg-white p-3 text-2xl font-black tracking-[0.4em] text-center focus:ring-0 focus:outline-none focus:border-black transition rounded"
-                        placeholder="000000"
-                        maxlength="6"
-                        inputmode="numeric"
-                        autocomplete="one-time-code"
-                        oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                    @error('code')
-                        <p class="text-red-600 text-xs font-bold mt-2">{{ $message }}</p>
-                    @enderror
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
+            
+            <!-- Left Side: QR & Key -->
+            <div class="space-y-8">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-black text-sm">1</div>
+                        <h2 class="text-xl font-black uppercase tracking-wider">Scan QR Code</h2>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-6 font-medium">Open your authenticator app and scan this barcode.</p>
+                    <div class="bg-gray-50 p-6 border-2 border-dashed border-gray-300 flex justify-center items-center rounded-xl">
+                        {!! $qrCodeSvg !!}
+                    </div>
                 </div>
 
-                <div class="flex gap-3">
-                    <button type="submit" class="flex-1 bg-black text-white px-6 py-3 text-sm font-black uppercase tracking-widest hover:bg-gray-800 transition">
-                        Enable 2FA
-                    </button>
-                    <a href="{{ route('admin.settings.index') }}" class="px-6 py-3 text-sm font-black uppercase tracking-widest border-2 border-gray-300 hover:border-black transition text-center">
-                        Cancel
-                    </a>
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 rounded-full bg-gray-200 text-black flex items-center justify-center font-black text-sm">2</div>
+                        <h2 class="text-sm font-bold uppercase tracking-wider text-gray-500">Can't scan? Use Manual Key</h2>
+                    </div>
+                    <div class="bg-gray-100 p-4 border-2 border-gray-200 font-mono text-center font-bold text-lg tracking-[0.2em] select-all rounded mt-3">
+                        {{ $secret }}
+                    </div>
                 </div>
-            </form>
+            </div>
+
+            <!-- Right Side: Verification -->
+            <div class="flex flex-col justify-center">
+                <div class="bg-gray-50 p-8 border-2 border-black h-full flex flex-col justify-center">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-black text-sm">3</div>
+                        <h2 class="text-xl font-black uppercase tracking-wider">Verify Code</h2>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-8 font-medium">Enter the 6-digit verification code generated by your app to confirm the setup.</p>
+
+                    <form method="POST" action="{{ route('admin.settings.2fa.enable') }}">
+                        @csrf
+                        <div class="mb-6">
+                            <label class="block text-xs font-black text-black uppercase tracking-widest mb-3">Verification Code</label>
+                            <input type="text" name="code" required autofocus
+                                class="w-full border-4 border-black bg-white p-4 text-3xl font-black tracking-[0.5em] text-center focus:ring-0 focus:outline-none focus:border-primary transition"
+                                placeholder="000000"
+                                maxlength="6"
+                                inputmode="numeric"
+                                autocomplete="one-time-code"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                            @error('code')
+                                <p class="text-red-600 text-xs font-bold mt-3 uppercase tracking-widest flex items-center gap-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="w-full bg-black text-white px-6 py-4 text-base font-black uppercase tracking-widest hover:bg-primary transition shadow-[4px_4px_0px_0px_#ea580c] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#ea580c]">
+                            Enable 2FA &rarr;
+                        </button>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
