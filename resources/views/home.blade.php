@@ -38,7 +38,7 @@
             <!-- MOBILE ONLY: Media shown between Profile & Expertise -->
             <figure class="lg:hidden group relative overflow-hidden border-2 border-black dark:border-white w-full aspect-[4/3]">
                 @if($profile->media_type === 'video')
-                    <video src="{{ asset($profile->media_path) }}" class="w-full h-full object-cover object-center grayscale group-hover:grayscale-0 transition duration-700" autoplay loop muted playsinline></video>
+                    <video src="{{ asset($profile->media_path) }}" class="w-full h-full object-cover object-center" autoplay loop muted playsinline></video>
                 @else
                     <img src="{{ asset($profile->media_path) }}" alt="{{ $profile->name }}" class="w-full h-full object-cover object-center grayscale group-hover:grayscale-0 transition duration-700" />
                 @endif
@@ -76,7 +76,7 @@
         <div class="hidden lg:block lg:col-span-6 relative lg:border-x-0 border-black dark:border-white lg:py-0">
             <figure class="group relative overflow-hidden border-2 border-black dark:border-white w-full h-full min-h-[400px]">
                 @if($profile->media_type === 'video')
-                    <video class="w-full h-full object-cover object-center grayscale group-hover:grayscale-0 transition duration-700" style="min-height: 400px;" autoplay loop muted playsinline preload="auto" poster="{{ asset('assets/img/profile.jpg') }}">
+                    <video class="w-full h-full object-cover object-center" style="min-height: 400px;" autoplay loop muted playsinline preload="auto" poster="{{ asset('assets/img/profile.jpg') }}">
                         <source src="{{ asset($profile->media_path) }}" type="video/mp4">
                     </video>
                 @else
