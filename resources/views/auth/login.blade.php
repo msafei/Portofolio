@@ -73,11 +73,11 @@
                 <form method="POST" action="{{ route('login') }}" class="space-y-6">
                     @csrf
 
-                    <!-- Email Address -->
+                    <!-- Username -->
                     <div>
-                        <label for="email" class="block text-sm font-black uppercase tracking-widest mb-2">Email Address</label>
-                        <input id="email" class="w-full border-4 border-black bg-transparent p-4 text-lg font-medium focus:ring-0 focus:outline-none focus:border-primary transition" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="admin@admin.com">
-                        @error('email')
+                        <label for="username" class="block text-sm font-black uppercase tracking-widest mb-2">Username</label>
+                        <input id="username" class="w-full border-4 border-black bg-transparent p-4 text-lg font-medium focus:ring-0 focus:outline-none focus:border-primary transition" type="text" name="username" value="{{ old('username') }}" required autofocus autocomplete="username" placeholder="admin">
+                        @error('username')
                             <p class="text-red-600 text-xs font-bold mt-2 uppercase tracking-widest">{{ $message }}</p>
                         @enderror
                     </div>

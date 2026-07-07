@@ -49,6 +49,7 @@
                 <a href="{{ route('admin.expertises.index') }}" class="block px-4 py-2 text-sm font-bold uppercase tracking-wider rounded-lg hover:bg-black hover:text-white transition {{ request()->routeIs('admin.expertises.*') ? 'bg-black text-white' : 'text-gray-600' }}">Expertise</a>
                 <a href="{{ route('admin.projects.index') }}" class="block px-4 py-2 text-sm font-bold uppercase tracking-wider rounded-lg hover:bg-black hover:text-white transition {{ request()->routeIs('admin.projects.*') ? 'bg-black text-white' : 'text-gray-600' }}">Projects</a>
                 <a href="{{ route('admin.certificates.index') }}" class="block px-4 py-2 text-sm font-bold uppercase tracking-wider rounded-lg hover:bg-black hover:text-white transition {{ request()->routeIs('admin.certificates.*') ? 'bg-black text-white' : 'text-gray-600' }}">Certificates</a>
+                <a href="{{ route('admin.settings.index') }}" class="block px-4 py-2 text-sm font-bold uppercase tracking-wider rounded-lg hover:bg-black hover:text-white transition {{ request()->routeIs('admin.settings.*') ? 'bg-black text-white' : 'text-gray-600' }}">Settings</a>
             </nav>
         </div>
         

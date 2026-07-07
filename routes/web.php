@@ -22,6 +22,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('expertises', \App\Http\Controllers\Admin\ExpertiseController::class);
     Route::resource('projects', \App\Http\Controllers\Admin\ProjectController::class);
     Route::resource('certificates', \App\Http\Controllers\Admin\CertificateController::class);
+
+    // Account Settings
+    Route::get('/settings', [\App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('settings.index');
+    Route::put('/settings/username', [\App\Http\Controllers\Admin\SettingsController::class, 'updateUsername'])->name('settings.username');
+    Route::put('/settings/password', [\App\Http\Controllers\Admin\SettingsController::class, 'updatePassword'])->name('settings.password');
 });
 
 // Original Breeze Profile routes, redirect them to admin
