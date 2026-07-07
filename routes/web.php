@@ -10,7 +10,7 @@ Route::get('/portofolio', [PortfolioController::class, 'index'])->name('portfoli
 Route::get('/portofolio_detail/{id}', [PortfolioController::class, 'show'])->name('portfolio.show');
 Route::get('/certificates', [\App\Http\Controllers\CertificateController::class, 'index'])->name('certificates.index');
 
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified', '2fa'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     
     // Profile Settings
@@ -27,6 +27,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('/settings', [\App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('settings.index');
     Route::put('/settings/username', [\App\Http\Controllers\Admin\SettingsController::class, 'updateUsername'])->name('settings.username');
     Route::put('/settings/password', [\App\Http\Controllers\Admin\SettingsController::class, 'updatePassword'])->name('settings.password');
+    Route::get('/settings/2fa/setup', [\App\Http\Controllers\Admin\SettingsController::class, 'setup2FA'])->name('settings.2fa.setup');
+    Route::post('/settings/2fa/enable', [\App\Http\Controllers\Admin\SettingsController::class, 'enable2FA'])->name('settings.2fa.enable');
+    Route::delete('/settings/2fa/disable', [\App\Http\Controllers\Admin\SettingsController::class, 'disable2FA'])->name('settings.2fa.disable');
 });
 
 // Original Breeze Profile routes, redirect them to admin

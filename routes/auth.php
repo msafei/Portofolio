@@ -56,4 +56,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
+
+    Route::get('two-factor-challenge', [\App\Http\Controllers\Auth\TwoFactorController::class, 'create'])
+        ->name('two-factor.challenge');
+        
+    Route::post('two-factor-challenge', [\App\Http\Controllers\Auth\TwoFactorController::class, 'store'])
+        ->name('two-factor.verify');
 });
