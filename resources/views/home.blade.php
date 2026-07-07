@@ -264,32 +264,86 @@
         }, 300);
     }
 
-    // Generic Infinite Scroll Function
-    function setupInfiniteScroll(scrollId, listId) {
-        if (window.innerWidth < 1024) return; // Only run animation on desktop (lg)
-        
-        const scrollEl = document.getElementById(scrollId);
-        const listEl = document.getElementById(listId);
-        if (scrollEl && listEl) {
-            listEl.innerHTML += listEl.innerHTML; // duplicate for seamless loop
-            let interval;
+    // Responsive Infinite Scroll — handles desktop↔mobile resize
+    (function() {
+        const scrollers = [
+            { scrollId: 'experience-scroll', listId: 'experience-list' },
+            { scrollId: 'expertise-scroll', listId: 'expertise-list' },
+            { scrollId: 'certificates-scroll', listId: 'certificates-list' },
+        ];
+
+        // Store state for each scroller
+        scrollers.forEach(s => {
+            s.originalHTML = null;
+            s.interval = null;
+            s.active = false;
+        });
+
+        function activate(s) {
+            const scrollEl = document.getElementById(s.scrollId);
+            const listEl = document.getElementById(s.listId);
+            if (!scrollEl || !listEl || s.active) return;
+
+            // Save original content before duplicating
+            if (!s.originalHTML) s.originalHTML = listEl.innerHTML;
+
+            // Duplicate for seamless loop
+            listEl.innerHTML = s.originalHTML + s.originalHTML;
+            scrollEl.scrollTop = 0;
+            s.active = true;
+
             function start() {
-                interval = setInterval(() => {
+                s.interval = setInterval(() => {
                     scrollEl.scrollTop += 1;
                     if (scrollEl.scrollTop >= listEl.scrollHeight / 2) {
                         scrollEl.scrollTop = 0;
                     }
                 }, 40);
             }
-            function stop() { clearInterval(interval); }
+            function stop() { clearInterval(s.interval); }
+
+            scrollEl.removeEventListener('mouseenter', s._stop);
+            scrollEl.removeEventListener('mouseleave', s._start);
+            s._start = start;
+            s._stop = stop;
             scrollEl.addEventListener('mouseenter', stop);
             scrollEl.addEventListener('mouseleave', start);
             start();
         }
-    }
 
-    setupInfiniteScroll('experience-scroll', 'experience-list');
-    setupInfiniteScroll('expertise-scroll', 'expertise-list');
-    setupInfiniteScroll('certificates-scroll', 'certificates-list');
+        function deactivate(s) {
+            if (!s.active) return;
+            const scrollEl = document.getElementById(s.scrollId);
+            const listEl = document.getElementById(s.listId);
+
+            clearInterval(s.interval);
+            if (scrollEl) {
+                scrollEl.removeEventListener('mouseenter', s._stop);
+                scrollEl.removeEventListener('mouseleave', s._start);
+                scrollEl.scrollTop = 0;
+            }
+            // Restore original (non-duplicated) content
+            if (listEl && s.originalHTML) listEl.innerHTML = s.originalHTML;
+            s.active = false;
+        }
+
+        function handleResize() {
+            const isDesktop = window.innerWidth >= 1024;
+            scrollers.forEach(s => {
+                if (isDesktop) activate(s);
+                else deactivate(s);
+            });
+        }
+
+        // Debounced resize listener
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(handleResize, 150);
+        });
+
+        // Initial run
+        handleResize();
+    })();
 </script>
 @endpush
