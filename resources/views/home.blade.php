@@ -122,7 +122,7 @@
                         </svg>
                     </a>
                 </div>
-                <div id="certificates-scroll" class="lg:h-[210px] lg:overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <div id="certificates-scroll" class="lg:max-h-[210px] lg:overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                     <div id="certificates-list" class="flex flex-col gap-3 py-1">
                         @foreach($certificates as $idx => $cert)
                         <article class="border-2 border-black dark:border-white bg-transparent p-3 transition-colors duration-300 lg:h-[95px] flex-col justify-center shrink-0 {{ $idx >= 5 ? 'hidden lg:flex' : 'flex' }}">
