@@ -53,17 +53,9 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
-                <label class="block text-sm font-black uppercase tracking-widest mb-2">Media Type</label>
-                <select name="media_type" class="w-full border-2 border-black p-3 focus:ring-0 focus:outline-none focus:border-primary transition">
-                    <option value="video" {{ old('media_type', $profile->media_type) == 'video' ? 'selected' : '' }}>Video</option>
-                    <option value="image" {{ old('media_type', $profile->media_type) == 'image' ? 'selected' : '' }}>Image</option>
-                </select>
-                @error('media_type') <span class="text-red-500 text-xs font-bold">{{ $message }}</span> @enderror
-            </div>
-            
-            <div>
+                <input type="hidden" name="media_type" value="image">
                 <label class="block text-sm font-black uppercase tracking-widest mb-2">Update Media File (Optional)</label>
-                <input type="file" name="media_file" accept="video/mp4,image/*,.gif" class="w-full border-2 border-black p-2 focus:ring-0 focus:outline-none focus:border-primary transition">
+                <input type="file" id="media_file" name="media_file" accept="image/*,.gif" class="w-full border-2 border-black p-2 focus:ring-0 focus:outline-none focus:border-primary transition">
                 <p class="text-xs text-gray-500 mt-1 font-medium">Current: {{ $profile->media_path }}</p>
                 @error('media_file') <span class="text-red-500 text-xs font-bold">{{ $message }}</span> @enderror
             </div>
