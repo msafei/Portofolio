@@ -76,7 +76,7 @@
                     <!-- Username -->
                     <div>
                         <label for="username" class="block text-sm font-black uppercase tracking-widest mb-2">Username</label>
-                        <input id="username" class="w-full border-4 border-black bg-transparent p-4 text-lg font-medium focus:ring-0 focus:outline-none focus:border-primary transition" type="text" name="username" value="{{ old('username') }}" required autofocus autocomplete="username" placeholder="admin">
+                        <input id="username" class="w-full border-4 border-black bg-transparent p-4 text-lg font-medium focus:ring-0 focus:outline-none focus:border-primary transition" type="text" name="username" value="{{ old('username') }}" required autofocus autocomplete="username" placeholder="Your username">
                         @error('username')
                             <p class="text-red-600 text-xs font-bold mt-2 uppercase tracking-widest">{{ $message }}</p>
                         @enderror
@@ -87,7 +87,7 @@
                         <div class="flex justify-between items-center mb-2">
                             <label for="password" class="block text-sm font-black uppercase tracking-widest">Password</label>
                         </div>
-                        <input id="password" class="w-full border-4 border-black bg-transparent p-4 text-lg font-medium focus:ring-0 focus:outline-none focus:border-primary transition" type="password" name="password" required autocomplete="current-password" placeholder="••••••••">
+                        <input id="password" class="w-full border-4 border-black bg-transparent p-4 text-lg font-medium focus:ring-0 focus:outline-none focus:border-primary transition" type="password" name="password" required autocomplete="current-password" placeholder="Your password">
                         @error('password')
                             <p class="text-red-600 text-xs font-bold mt-2 uppercase tracking-widest">{{ $message }}</p>
                         @enderror
