@@ -36,7 +36,7 @@
             </section>
 
             <!-- MOBILE ONLY: Media shown between Profile & Expertise -->
-            <figure class="lg:hidden group relative overflow-hidden border-2 border-black dark:border-white w-full aspect-[4/3]">
+            <figure class="lg:hidden group relative overflow-hidden border-2 border-black dark:border-white w-full aspect-[3/4]">
                 <img src="{{ asset($profile->media_path) }}" alt="{{ $profile->name }}" class="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition duration-700" />
                 <div class="absolute bottom-0 left-0 bg-black text-white dark:bg-white dark:text-black p-3 m-3 border border-white/20 dark:border-black/20 backdrop-blur-md">
                     <h3 class="text-base font-black uppercase tracking-tighter">{{ $profile->media_title }}</h3>
@@ -45,9 +45,9 @@
             </figure>
 
             <!-- Expertise -->
-            <section>
-                <h2 class="text-2xl font-black uppercase border-b-2 border-black dark:border-white pb-1 mb-3">Expertise</h2>
-                <div id="expertise-scroll" class="h-[212px] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <section class="flex flex-col flex-1 min-h-0">
+                <h2 class="text-2xl font-black uppercase border-b-2 border-black dark:border-white pb-1 mb-3 shrink-0">Expertise</h2>
+                <div id="expertise-scroll" class="lg:flex-1 lg:overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                     <div id="expertise-list" class="flex flex-col gap-3 py-1">
                         @foreach($expertises as $idx => $expertise)
                         <article onclick="openModal('{{ addslashes($expertise->name) }}', '{{ addslashes($expertise->category) }}', '', '{{ asset($expertise->logo_path) }}', '{{ addslashes($expertise->description) }}')" class="flex items-center gap-4 border-2 border-black dark:border-white p-3 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition group/item cursor-pointer h-[60px] shrink-0">
@@ -84,7 +84,7 @@
             <!-- Work Experience -->
             <section>
                 <h2 class="text-2xl font-black uppercase border-b-2 border-black dark:border-white pb-1 mb-3">Experience</h2>
-                <div id="experience-scroll" class="max-h-[300px] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <div id="experience-scroll" class="lg:max-h-[300px] lg:overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                     <div id="experience-list" class="flex flex-col gap-3 py-1">
                         @foreach($experiences as $idx => $experience)
                         @php
@@ -122,10 +122,10 @@
                         </svg>
                     </a>
                 </div>
-                <div id="certificates-scroll" class="h-[210px] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <div id="certificates-scroll" class="lg:h-[210px] lg:overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                     <div id="certificates-list" class="flex flex-col gap-3 py-1">
                         @foreach($certificates as $idx => $cert)
-                        <article class="border-2 border-black dark:border-white bg-transparent p-3 transition-colors duration-300 h-[95px] flex flex-col justify-center shrink-0">
+                        <article class="border-2 border-black dark:border-white bg-transparent p-3 transition-colors duration-300 lg:h-[95px] flex-col justify-center shrink-0 {{ $idx >= 5 ? 'hidden lg:flex' : 'flex' }}">
                             <h3 class="text-sm font-black uppercase leading-tight mb-1 truncate" title="{{ $cert->name }}">{{ $cert->name }}</h3>
                             <p class="text-[10px] font-medium italic opacity-80 mb-2 truncate">{{ $cert->issuing_organization }}</p>
                             
@@ -138,6 +138,11 @@
                         </article>
                         @endforeach
                     </div>
+                </div>
+                <div class="lg:hidden mt-3">
+                    <a href="{{ route('certificates.index') }}" class="block w-full text-center border-2 border-black dark:border-white py-2 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition">
+                        View All
+                    </a>
                 </div>
             </section>
         </div>
@@ -261,6 +266,8 @@
 
     // Generic Infinite Scroll Function
     function setupInfiniteScroll(scrollId, listId) {
+        if (window.innerWidth < 1024) return; // Only run animation on desktop (lg)
+        
         const scrollEl = document.getElementById(scrollId);
         const listEl = document.getElementById(listId);
         if (scrollEl && listEl) {
