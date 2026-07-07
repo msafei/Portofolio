@@ -104,7 +104,7 @@ class SettingsController extends Controller
         }
 
         $google2fa = new Google2FA();
-        $valid = $google2fa->verifyKey($secret, $request->code);
+        $valid = $google2fa->verifyKey($secret, $request->code, 8); // Window of 8 = 4 minutes tolerance for server time mismatch
 
         if (!$valid) {
             return back()->with('error', 'Invalid verification code. Please scan the QR code again and enter a valid code.');

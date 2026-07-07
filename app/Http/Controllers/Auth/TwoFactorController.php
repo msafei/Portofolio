@@ -38,7 +38,7 @@ class TwoFactorController extends Controller
         $google2fa = new Google2FA();
         $user = auth()->user();
 
-        $valid = $google2fa->verifyKey($user->google2fa_secret, $request->code);
+        $valid = $google2fa->verifyKey($user->google2fa_secret, $request->code, 8); // Window of 8 = 4 minutes tolerance for server time mismatch
 
         if ($valid) {
             session(['2fa_verified' => true]);

@@ -34,7 +34,7 @@
                         <div class="w-8 h-8 rounded-full bg-gray-200 text-black flex items-center justify-center font-black text-sm">2</div>
                         <h2 class="text-sm font-bold uppercase tracking-wider text-gray-500">Can't scan? Use Manual Key</h2>
                     </div>
-                    <div class="bg-gray-100 p-4 border-2 border-gray-200 font-mono text-center font-bold text-lg tracking-[0.2em] select-all rounded mt-3">
+                    <div class="bg-gray-100 p-4 border-2 border-gray-200 font-mono text-center font-bold text-base md:text-lg tracking-widest break-all select-all rounded mt-3">
                         {{ $secret }}
                     </div>
                 </div>
